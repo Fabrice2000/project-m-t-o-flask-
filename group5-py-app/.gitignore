@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environments
+.env
+venv/
+env/
+
+# IDEs and other tools
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+
+# Documentation
+docs/_build/
+
+meteo_activites.db
+

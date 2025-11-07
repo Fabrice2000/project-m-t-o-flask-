@@ -1,0 +1,8 @@
+def get_forecast(city: str, date: datetime) -> dict:
+    """
+    Récupère la prévision météo pour une ville et une date.
+    
+    :param city: nom de la ville
+    :param date: date ciblée (datetime)
+    :return: dict contenant 'temp', 'precipitation', 'wind', 'condition_code'
+    """

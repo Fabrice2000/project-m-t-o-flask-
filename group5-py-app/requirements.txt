@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+requests
+pydantic
+pytest
+sphinx
+sphinx-autobuild
+sphinxcontrib-napoleon
