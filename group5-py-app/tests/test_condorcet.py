@@ -63,9 +63,9 @@ class TestCondorcetVotingSystem:
         assert matrix[1][2] == 2
         assert matrix[2][1] == 1
         
-        # 1 vs 3: 1 gagne 2 votes contre 1
-        assert matrix[1][3] == 2
-        assert matrix[3][1] == 1
+        # 1 vs 3: 1 gagne 3 votes contre 0 (dans tous les votes, 1 est avant 3)
+        assert matrix[1][3] == 3
+        assert matrix[3][1] == 0
         
         # 2 vs 3: 2 gagne 2 votes contre 1
         assert matrix[2][3] == 2
@@ -247,9 +247,15 @@ class TestCondorcetVotingSystem:
 
     def test_invalid_tie_breaking_method(self):
         """Test avec méthode de départage invalide"""
+        system = CondorcetVotingSystem(tie_breaking_method="invalid")
+        # Créer une situation d'égalité pour déclencher la résolution
+        rankings = [
+            [1, 2, 3],
+            [2, 3, 1],
+            [3, 1, 2]
+        ]
         with pytest.raises(ValueError, match="Méthode de résolution inconnue"):
-            system = CondorcetVotingSystem(tie_breaking_method="invalid")
-            system.conduct_election([[1, 2]], [1, 2])
+            system.conduct_election(rankings, [1, 2, 3])
 
 class TestLegacyFunction:
     """Tests pour la fonction de compatibilité"""

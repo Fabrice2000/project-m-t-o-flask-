@@ -119,9 +119,17 @@ class CondorcetVotingSystem:
         for ranking in rankings:
             # Pour chaque paire de candidats dans ce vote
             for i, candidate_a in enumerate(ranking):
+                # Vérifier que candidate_a est dans la liste des candidats
+                if candidate_a not in candidates:
+                    continue
+                    
                 for candidate_b in ranking[i + 1:]:
+                    # Vérifier que candidate_b est dans la liste des candidats
+                    if candidate_b not in candidates:
+                        continue
+                        
                     # candidate_a est préféré à candidate_b
-                    if candidate_b in matrix[candidate_a]:
+                    if candidate_a in matrix and candidate_b in matrix[candidate_a]:
                         matrix[candidate_a][candidate_b] += 1
         
         return matrix
