@@ -1,4 +1,4 @@
-# Byte-compiled / optimized / DLL files
+# Cache Python
 __pycache__/
 *.pyc
 *.pyd
@@ -8,7 +8,14 @@ __pycache__/
 .coverage
 htmlcov/
 
-# Environments
+# Base de données et logs
+*.db
+*.sqlite
+*.sqlite3
+*.log
+logs/
+
+# Environnements
 .env
 venv/
 env/

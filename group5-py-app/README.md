@@ -1,75 +1,123 @@
-Group 4 python application : **Weather Python Application**
+# Application de Recommandation d'Activités Météo
 
-# 1 - Pitch
+Une application qui recommande des activités selon la météo et les préférences des utilisateurs.
 
-- Vous êtes chargé de concevoir une application qui permettra aux utilisateurs de choisir des
-activités en fonction des conditions météorologiques.
-En effet, vous avez constaté, en réalisant une étude que bon nombre d'utilisateurs
-souhaiteraient pour organiser leur temps libre — et celui de leurs enfants, typiquement — en
-fonction de la météo annoncée. Si les conditions sont suffisamment favorables, ils
-souhaiteraient privilégier des activités de plein air, alors que si elles sont maussades, il
-préféreraient se réfugier à l'abri de bâtiments confortables.
-Le projet que vous imaginez est réalisé à l'échelle d'une ville. Vous vous êtes mis en relation
-avec la municipalité qui souhaite promouvoir la richesse de son potentiel culturel, sportif et
-associatif. L'équipe municipale pourrait donc faire en sorte de mettre à votre disposition un
-catalogue des activités accessibles sur son territoire.
+## Fonctionnalités
 
-# 2 - Objectifs
+- Recommandations personnalisées selon la météo
+- Intégration de plusieurs services météo
+- Système de vote Condorcet pour les groupes
+- API REST avec documentation automatique
+- Profils utilisateur personnalisables
 
-- L'objectif principal de l'application est de permettre aux utilisateurs de trouver des activités qui
-leur conviennent en fonction de certaines contraintes, notamment temporelles et
-météorologiques.
-    - **Objectif 1** : Définir un modèle de données qui corresponde à la finalité de l'application ; ce
-modèle peut être implémenté de différentes manières, on s'attachera principalement ici à le
-décrire sous forme de schéma UML ou équivalent.
-    - **Objectif 2** : Fournir un tableau de bord avec les prévisions météorologiques, pour une ville
-donnée, pour des dates déterminées
-    - **Objectif 3** : Fournir une liste des activités possibles en fonction de contraintes de dates et de
-météo
-    - **Objectif 4** : Etablir de profils d'utilisateur et concevoir un système simple de recommandation
-algorithmique
-    - **Objectif 5** : Mettre en place un système de de vote par préférence, selon la méthode Condorcet, pour déterminer quelle est l'activité préférée des utilisateurs
+## Installation
 
-# 3 - Fonctionnalités
+### Prérequis
 
-- ## 3.1 - Introduction
+- Python 3.8+
+- PostgreSQL (optionnel)
+- Clé API météo (optionnel pour la démo)
 
-  - Cette application est un service. On ne s'occupe donc ici que de la partie « serveur ». On
-  admettra qu'il existe par ailleurs une interface utilisateur, ou des clients divers, qui permettent
-  d'accéder à ce service.
-  Dans ce qui suit, on considérera que l'accent est mis sur ce qui est produit (ou reçu) par le
-  serveur. Ce qui importe est donc la réponse telle qu'elle est envoyée par ce dernier, typique
-  sous forme d'un objet JSON, et non ce qui est, en fn de compte, perçu par l'utilisateur.
+### Démarrage rapide
 
-- ## 3.2 - Cas d'utilisation
+```bash
+git clone <repository-url>
+cd group5-py-app
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+pip install -r requirements.txt
+python app/main.py
+```
 
-  - **UC1** : En tant qu'utilisateur, je vous connaître les prévisions météorologiques pour une date
-  déterminée, en choisissant cette date
-  - **UC2** : En tant qu'utilisateur, je voudrais connaître les activités possibles à une date donnée,
-  en choisissant cette date
-  - **UC3** : En tant qu'utilisateur, je voudrais savoir quelle activité seraient possibles, à une date
-  déterminée, en fonction des prévisions météo
-  - **UC4** : En tant qu'utilisateur, j'aimerais pouvoir donner mon avis sur les activités que j'ai
-  préférées, en les triant dans une liste qui m'est fournie
-  - **UC5** : En tant qu'administrateur, j'aimerais pouvoir enrichir une liste d'activités proposées
-  dans ma commune
-  - **UC6** : En tant qu'administrateur.
+### Configuration
 
-# 4 - Contraintes
+Créez un fichier `.env` :
 
-- **Contrainte 1** : Le code métier devra être écrit sous forme de classes selon les principes SOLID
-- **Contrainte 2** : Vous devrez utiliser les services en ligne disponibles pour récupérer les données relatives à la météo et à la qualité de l'air
-- **Contrainte 3** : Votre code devra être intégralement testé avec pytest et, éventuellement,
-avec une bibliothèque de tests d'intégration.
-- **Contrainte 4** : Votre code devra être documenté de manière à être reconnu par un
-générateur de documentation comme Sphinx.
+```bash
+# Base de données (optionnel)
+DB_HOST=localhost
+DB_NAME=meteo_app
+DB_USER=user
+DB_PASSWORD=password
 
-# 5 - Ressources
-- ## 5.1 - Météo
-  - OpenWeatherMap
-  - WeatherAPI
-- ## 5.2 - Qualité de l'air
-  - OpenAQ
-- ## 5.3 - Événements
-  - AirVisual
-  - TicketMaster
+# Service météo (optionnel)
+WEATHER_API_KEY=your_api_key
+
+# Application
+APP_DEBUG=true
+SECRET_KEY=your_secret_key
+```
+
+## Utilisation
+
+### Démarrer l'application
+
+```bash
+python app/main.py
+```
+
+L'API est accessible sur `http://localhost:8000`
+
+### Documentation
+
+- Interface Swagger : `http://localhost:8000/docs`
+- Documentation alternative : `http://localhost:8000/redoc`
+
+### Exemples d'API
+
+```bash
+# Météo actuelle
+curl "http://localhost:8000/demo/weather?ville=Paris"
+
+# Recommandations d'activités
+curl "http://localhost:8000/demo/activities"
+```
+
+## Tests
+
+```bash
+pytest                    # Tous les tests
+pytest --cov=app         # Avec couverture
+pytest tests/test_*.py   # Tests spécifiques
+```
+
+## Fonctionnalités principales
+
+### Vote Condorcet
+
+Système de vote par préférence pour choisir les activités en groupe.
+
+### Recommandations intelligentes
+
+- Météo (40%) : température, vent, précipitations
+- Préférences utilisateur (60%) : activités favorites, historique
+
+### Services météo
+
+- OpenWeatherMap (principal)
+- WeatherAPI (secours)
+- OpenAQ (qualité de l'air)
+
+## Contribution
+
+1. Fork le projet
+2. Créer une branche (`git checkout -b feature/nouvelle-fonctionnalite`)
+3. Commiter (`git commit -m 'Ajout nouvelle fonctionnalité'`)
+4. Push (`git push origin feature/nouvelle-fonctionnalite`)
+5. Créer une Pull Request
+
+## Licence
+
+MIT License - voir le fichier `LICENSE`
+
+---
+
+_Développé par l'équipe Groupe 5_
+
+Kouadjeu Ngatchou Fabrice
+
+Benitez Noah
+
+Yazid EL-BAK
+
+Irina LETSARA
