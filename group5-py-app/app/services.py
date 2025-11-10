@@ -377,7 +377,7 @@ class OpenAQAirQualityService(AirQualityServiceInterface):
     """Service de qualité de l'air utilisant l'API OpenAQ"""
     
     def __init__(self, cache_duration: int = 1800):  # Cache de 30 minutes
-        self.base_url = "https://api.openaq.org/v2"
+        self.base_url = "https://api.openaq.org/v3"
         self.cache_duration = cache_duration
         self._cache = {}
 
@@ -412,7 +412,7 @@ class OpenAQAirQualityService(AirQualityServiceInterface):
         }
         
         if country_code:
-            params["country"] = country_code
+            params["countries"] = country_code  # v3 utilise "countries" au pluriel
         
         data = self._make_request("measurements", params)
         
